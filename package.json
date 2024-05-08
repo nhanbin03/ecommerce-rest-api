@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon run",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon -r dotenv/config index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create-db": "node -r dotenv/config initializeDatabase.js"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "nodemon": "^3.1.0",
     "pg": "^8.11.5"
