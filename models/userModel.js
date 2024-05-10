@@ -42,7 +42,13 @@ module.exports = {
         return null;
     },
 
-    async findAll() {
+    async findAll(options) {
+        if (options) {
+            const { rows } = await db.query(
+                queryGen.find('users', options)
+            );
+            return rows;
+        }
         const { rows } = await db.query(
             queryGen.findAll('users')
         );
