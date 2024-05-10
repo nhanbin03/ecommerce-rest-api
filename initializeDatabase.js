@@ -17,22 +17,22 @@ const tables = {
   carts: `CREATE TABLE IF NOT EXISTS carts (
         id SERIAL PRIMARY KEY,
         user_id INT NOT NULL,
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     )`,
   carts_products: `CREATE TABLE IF NOT EXISTS carts_products (
         id SERIAL PRIMARY KEY,
         cart_id INT NOT NULL,
         product_id INT NOT NULL,
         quantity INT NOT NULL,
-        FOREIGN KEY (cart_id) REFERENCES carts(id),
-        FOREIGN KEY (product_id) REFERENCES products(id)
+        FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
     )`,
   orders: `CREATE TABLE IF NOT EXISTS orders (
         id SERIAL PRIMARY KEY,
         user_id INT NOT NULL,
         total FLOAT NOT NULL,
         created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
     )`,
   orders_products: `CREATE TABLE IF NOT EXISTS orders_products (
         id SERIAL PRIMARY KEY,
@@ -42,8 +42,8 @@ const tables = {
         name VARCHAR(255) NOT NULL,
         price FLOAT NOT NULL,
         description TEXT NOT NULL,
-        FOREIGN KEY (order_id) REFERENCES orders(id),
-        FOREIGN KEY (product_id) REFERENCES products(id)
+        FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE SET NULL
     )`,
 };
 
