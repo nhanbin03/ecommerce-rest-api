@@ -67,7 +67,7 @@ module.exports = {
 
     async getProducts(cart_id) {
         const { rows } = await db.query(
-            `SELECT product_id, name, quantity, price FROM carts_products cp
+            `SELECT product_id, name, quantity, price, description FROM carts_products cp
             LEFT JOIN products p
             ON cp.product_id = p.id
             WHERE cp.cart_id = ${cart_id}`
