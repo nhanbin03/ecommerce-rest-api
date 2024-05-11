@@ -15,7 +15,7 @@ module.exports = {
 
     update(table, data, options) {
         const assignments = [];
-        for (const key in options) {
+        for (const key in data) {
             assignments.push(`${key} = '${data[key]}'`);
         }
         const conditions = [];
