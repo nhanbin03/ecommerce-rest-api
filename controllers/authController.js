@@ -35,9 +35,9 @@ module.exports = {
 
             const user = await userModel.create(username, password);
 
-            res.status(201).send({ id: user.id, username: user.username });
+            res.status(201).json({ id: user.id, username: user.username });
         } catch (err) {
-            res.status(400).send({ error: err.message });
+            res.status(400).json({ message: err.message });
         }
     },
 
@@ -53,9 +53,9 @@ module.exports = {
                 throw Error("Password is incorrect.");
             }
             setJwt(res, user.id);
-            res.status(200).send({ id: user.id, username: user.username });
+            res.status(200).json({ id: user.id, username: user.username });
         } catch (err) {
-            res.status(400).json({ error: err.message });
+            res.status(400).json({ message: err.message });
         }
     }
 }
