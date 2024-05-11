@@ -7,13 +7,14 @@ module.exports = {
         if (token) {
             jwt.verify(token, JWT_SECRET, (err, decoded) => {
                 if (err) {
-                    res.redirect('/login');
+                    res.status(401).send("Unauthorized.");
                 } else {
+                    req.user.id = decoded;
                     next();
                 }
             })
         } else {
-            res.redirect('/login');
+            res.status(401).send("Unauthorized.");
         }
     }
 }
