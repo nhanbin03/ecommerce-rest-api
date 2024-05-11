@@ -10,8 +10,10 @@ router.get('/mine', cartController.getAllCarts);
 router.post('/mine', cartController.createCart);
 router.get('/mine/:cartId', cartController.getCartProducts);
 router.delete('/mine/:cartId', cartController.deleteCart);
+router.post('/mine/:cartId/checkout', cartController.checkout);
 router.post('/mine/:cartId/:productId', cartController.addProduct);
 router.put('/mine/:cartId/:productId', cartController.updateProduct);
 router.delete('/mine/:cartId/:productId', cartController.removeProduct);
+
 
 module.exports = router;

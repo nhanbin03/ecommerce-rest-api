@@ -1,4 +1,5 @@
 const cartModel = require('../models/cartModel');
+const orderModel = require('../models/orderModel');
 
 async function cartCheck(req, res) {
     const { id } = req.user;
@@ -133,6 +134,18 @@ module.exports = {
             await cartModel.removeProduct(cartId, productId);
 
             res.status(204).send();
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    },
+
+    async checkout(req, res) {
+        try {
+            const { id } = req.user;
+            const cartId = req.params.cartId;
+
+            const order = await orderModel.create(id, cartId);
+            res.status(201).json(order);
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
