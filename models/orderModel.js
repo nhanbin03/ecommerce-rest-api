@@ -50,5 +50,26 @@ module.exports = {
             return rows[0];
         }
         return null;
-    }
+    },
+
+    async findAll(options) {
+        if (options) {
+            const { rows } = await db.query(
+                queryGen.find('orders', options)
+            );
+            return rows;
+        }
+        const { rows } = await db.query(
+            queryGen.findAll('orders')
+        );
+        return rows;
+    },
+
+    async getProducts(order_id) {
+        const { rows } = await db.query(
+            `SELECT product_id, name, quantity, price, description FROM orders_products
+            WHERE order_id = ${order_id}`
+        )
+        return rows;
+    },
 }
