@@ -9,7 +9,9 @@ module.exports = {
                 if (err) {
                     res.status(401).send("Unauthorized.");
                 } else {
-                    req.user.id = decoded;
+                    req.user = {
+                        id: decoded.sub
+                    };
                     next();
                 }
             })
