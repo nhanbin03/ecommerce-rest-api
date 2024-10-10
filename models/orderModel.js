@@ -20,6 +20,12 @@ module.exports = {
             );
             const order_id = rows[0].id;
             for (const product of cart) {
+                const { quantity } = await client.query(
+                    queryGen.find('products', { id: product.product_id })
+                ).row[0];
+                if (quantity < product.quantity) {
+                    throw new Error('Product out of stock');
+                }
                 await client.query(
                     queryGen.create('orders_products', {
                         order_id,
