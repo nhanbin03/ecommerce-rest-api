@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -r dotenv/config index.js",
+    "start": "nodemon --env-file=.env -L index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "create-db": "node -r dotenv/config initializeDatabase.js"
+    "create-db": "node --env-file=.env initializeDatabase.js"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,33 @@
+version: '1'
+
+services:
+  app:
+    build: .
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+    command: sh -c "npm run create-db && npm start"
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: "pg_isready -U ${PGUSER} -d ${PGDATABASE}"
+      interval: 2s
+      retries: 5
+      start_period: 2s
+      timeout: 2s
+volumes:
+  pgdata:
